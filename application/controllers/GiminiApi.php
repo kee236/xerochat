@@ -111,3 +111,32 @@ class ChatbotController extends Controller
 
 
 
+
+class AiSettingsController extends BaseController
+{
+    // ... (ฟังก์ชันอื่นๆ)
+
+    public function connect_line_notify(Request $request)
+    {
+        $code = $request->input('code');
+
+        // แลกเปลี่ยน code เป็น access token โดยใช้ LINE Notify API
+        // ...
+
+        // บันทึก access token ลงในฐานข้อมูล
+        // ...
+
+        return redirect()->back()->with('success', $this->lang->line('LINE Notify connected successfully.'));
+    }
+
+    public function disconnect_line_notify()
+    {
+        // ลบ access token จากฐานข้อมูล
+        // ...
+
+        return $this->customJsonResponse($this->lang->line('LINE Notify disconnected successfully.'), true);
+    }
+}
+
+
+
