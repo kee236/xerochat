@@ -1,0 +1,57 @@
+<?php
+// ... (ส่วนอื่นๆ ของ Controller)
+
+class AiSettingsController extends BaseController
+{
+    // ... (ฟังก์ชันอื่นๆ ที่มีอยู่แล้ว)
+
+    // Gemini Integration
+
+    public function gemini_list()
+    {
+        // ... (เหมือนเดิม)
+    }
+
+    public function gemini_grid_data()
+    {
+        // ... (เหมือนเดิม)
+    }
+
+    public function gemini_add() 
+    {
+        // ... ตรวจสอบ request และ validation
+
+        $apiKey = strip_tags($this->input->post('api_key'));
+
+        // ตรวจสอบ API key กับ Gemini API โดยใช้ library
+        $this->load->library('gemini_api');
+        $gemini = $this->gemini_api;
+        if (!$gemini->validateApiKey($apiKey)) {
+            return $this->customJsonResponse($this->lang->line('Invalid Gemini API key.'));
+        }
+
+        try {
+            $this->db->trans_begin();
+
+            $this->basic->insert_data('gemini_config', [ 
+                'user_id' => $this->user_id,
+                'api_key' => $apiKey,
+                'model' => 'gemini-pro', // หรือรับค่า model จาก form ถ้ามี
+                'status' => '1',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
+
+            $this->db->trans_commit();
+        } catch (\Exception $e) {
+            $this->db->trans_rollback();
+            log_message('error', 'Unable to add Gemini API key.');
+            return $this->customJsonResponse($e->getMessage());
+        }
+
+        $this->_insert_usage_log(265,1); // ปรับ id ของ log ให้เหมาะสม
+        return $this->customJsonResponse($this->lang->line('Your Gemini API key has been added successfully.'), true);
+    }
+
+    // ... (ฟังก์ชันอื่นๆ เช่น gemini_edit, gemini_delete, gemini_details)
+}
