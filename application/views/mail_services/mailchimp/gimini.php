@@ -20,7 +20,7 @@
                                 <div class="card">
                                         <div class="card-body data-card">
                                                 <div class="table-responsive">
-                                                        <table id="mailchimp-datatable" class="table table-bordered" style="width:100%">
+                                                        <table id="gimini-datatable" class="table table-bordered" style="width:100%">
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -43,13 +43,13 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa fa-plus-circle"></i> Mailchimp - <?= $this->lang->line('Add Account') ?></h5>
+                <h5 class="modal-title"><i class="fa fa-plus-circle"></i> Gimini - <?= $this->lang->line('Add Account') ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">               
                         <span aria-hidden="true">×</span>          
                 </button>           
             </div>
             <div class="modal-body">
-                <form class="" id="mailchimp-integration-form">
+                <form class="" id="gimini-integration-form">
                     <div class="form-group">
                         <label><?= $this->lang->line('Tracking Name') ?></label>
                         <div class="input-group">
